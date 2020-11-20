@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.order.mapper.GSysEvaluateMapper">
+  <resultMap id="BaseResultMap" type="com.example.order.entity.GSysEvaluate">
+    <id column="EVALUATE_ID" jdbcType="BIGINT" property="evaluateId" />
+    <result column="ORDER_ID" jdbcType="BIGINT" property="orderId" />
+    <result column="ATTITUDE" jdbcType="VARCHAR" property="attitude" />
+    <result column="EFFICIENCY" jdbcType="VARCHAR" property="efficiency" />
+    <result column="METER" jdbcType="VARCHAR" property="meter" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="EVALUATION" jdbcType="VARCHAR" property="evaluation" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    EVALUATE_ID, ORDER_ID, ATTITUDE, EFFICIENCY, METER, CREATE_TIME,EVALUATION
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from g_sys_evaluate
+    where EVALUATE_ID = #{evaluateId,jdbcType=BIGINT}
+  </select>
+  <insert id="insertSelective" parameterType="com.example.order.entity.GSysEvaluate">
+    insert into g_sys_evaluate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="evaluateId != null">
+        EVALUATE_ID,
+      </if>
+      <if test="orderId != null">
+        ORDER_ID,
+      </if>
+      <if test="attitude != null">
+        ATTITUDE,
+      </if>
+      <if test="efficiency != null">
+        EFFICIENCY,
+      </if>
+      <if test="meter != null">
+        METER,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="evaluation != null">
+        EVALUATION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="evaluateId != null">
+        #{evaluateId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="attitude != null">
+        #{attitude,jdbcType=VARCHAR},
+      </if>
+      <if test="efficiency != null">
+        #{efficiency,jdbcType=VARCHAR},
+      </if>
+      <if test="meter != null">
+        #{meter,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="evaluation != null">
+        #{evaluation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.order.entity.GSysEvaluate">
+    update g_sys_evaluate
+    <set>
+      <if test="orderId != null">
+        ORDER_ID = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="attitude != null">
+        ATTITUDE = #{attitude,jdbcType=VARCHAR},
+      </if>
+      <if test="efficiency != null">
+        EFFICIENCY = #{efficiency,jdbcType=VARCHAR},
+      </if>
+      <if test="meter != null">
+        METER = #{meter,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="evaluation != null">
+        EVALUATION = #{evaluation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EVALUATE_ID = #{evaluateId,jdbcType=BIGINT}
+  </update>
+
+  <select id="checkEvaluationDetail" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from g_sys_evaluate
+    where ORDER_ID = #{orderId,jdbcType=BIGINT}
+  </select>
+</mapper>

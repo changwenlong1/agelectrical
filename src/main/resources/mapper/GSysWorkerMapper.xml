@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.order.mapper.GSysWorkerMapper">
+  <resultMap id="BaseResultMap" type="com.example.order.entity.GSysWorker">
+
+    <id column="WORKER_ID" jdbcType="BIGINT" property="workerId" />
+    <result column="WORKER_NAME" jdbcType="VARCHAR" property="workerName" />
+    <result column="GENDER" jdbcType="VARCHAR" property="gender" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="IS_VALID" jdbcType="VARCHAR" property="isValid" />
+    <result column="GRADE" jdbcType="VARCHAR" property="grade" />
+    <result column="IS_DEL" jdbcType="VARCHAR" property="isDel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    WORKER_ID, WORKER_NAME, GENDER, PHONE, PASSWORD, IS_VALID ,GRADE ,IS_DEL
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from g_sys_worker
+    where WORKER_ID = #{workerId,jdbcType=BIGINT}
+  </select>
+
+  <select id="workerLogin" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM g_sys_worker
+    WHERE PHONE = #{loginName,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="getWorkers" parameterType="java.lang.String" resultMap="BaseResultMap">
+
+    select
+    <include refid="Base_Column_List" />
+    from g_sys_worker
+    where   GRADE = #{grade,jdbcType=VARCHAR} and IS_DEL = '1'
+  </select>
+
+  <insert id="addWorker" parameterType="com.example.order.entity.GSysWorker">
+    insert into g_sys_worker
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="workerId != null">
+        WORKER_ID,
+      </if>
+      <if test="workerName != null">
+        WORKER_NAME,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="password != null">
+        PASSWORD,
+      </if>
+      <if test="isValid != null">
+        IS_VALID,
+      </if>
+      <if test="grade != null">
+        GRADE,
+      </if>
+      <if test="isDel != null">
+        IS_DEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="workerId != null">
+        #{workerId,jdbcType=BIGINT},
+      </if>
+      <if test="workerName != null">
+        #{workerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="deleteWorker" parameterType="java.lang.String">
+    update g_sys_worker SET
+    IS_DEL = '0'
+    where WORKER_ID = #{workerId,jdbcType=BIGINT}
+  </update>
+
+  <select id="getWorker" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from g_sys_worker
+    where WORKER_ID = #{workerId,jdbcType=BIGINT}
+  </select>
+
+  <update id="updateWorker" parameterType="com.example.order.entity.GSysWorker">
+    update g_sys_worker
+    <set>
+      <if test="workerName != null">
+        WORKER_NAME = #{workerName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        IS_VALID = #{isValid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where WORKER_ID = #{workerId,jdbcType=BIGINT}
+  </update>
+
+  <select id="getWorkerArray" resultType="java.util.Map" parameterType="java.lang.String">
+    select
+        WORKER_ID as id,WORKER_NAME as name
+    from g_sys_worker
+    where  GRADE = #{grade}
+    order by WORKER_ID asc
+  </select>
+</mapper>

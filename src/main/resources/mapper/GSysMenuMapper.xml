@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.order.mapper.GSysMenuMapper">
+  <resultMap id="BaseResultMap" type="com.example.order.entity.GSysMenu">
+
+    <id column="MENU_ID" jdbcType="BIGINT" property="menuId" />
+    <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="PARENT_ID" jdbcType="INTEGER" property="parentId" />
+    <result column="IS_VALID" jdbcType="CHAR" property="isValid" />
+    <result column="SORT" jdbcType="BIGINT" property="sort" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    MENU_ID, MENU_NAME, REMARK, PARENT_ID, IS_VALID, SORT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from g_sys_menu
+    where MENU_ID = #{menuId,jdbcType=BIGINT}
+  </select>
+  <insert id="insertSelective" parameterType="com.example.order.entity.GSysMenu">
+    insert into g_sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="menuId != null">
+        MENU_ID,
+      </if>
+      <if test="menuName != null">
+        MENU_NAME,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="isValid != null">
+        IS_VALID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="menuId != null">
+        #{menuId,jdbcType=BIGINT},
+      </if>
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.order.entity.GSysMenu">
+    update g_sys_menu
+    <set>
+      <if test="menuName != null">
+        MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        PARENT_ID = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="isValid != null">
+        IS_VALID = #{isValid,jdbcType=CHAR},
+      </if>
+    </set>
+    where MENU_ID = #{menuId,jdbcType=BIGINT}
+  </update>
+
+  <select id="getMenuListForUserId" resultMap="BaseResultMap">
+    SELECT
+        b.*
+    FROM
+        g_sys_user_menu a
+    LEFT JOIN g_sys_menu b ON a.MENU_ID = b.MENU_ID
+    WHERE
+        a.USER_ID = #{userId} AND b.IS_VALID = '1'
+    ORDER BY b.MENU_ID ASC
+  </select>
+
+  <select id="getMenuListForParentId" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from g_sys_menu
+    where PARENT_ID = #{parentId,jdbcType=INTEGER}
+  </select>
+  <select id="getMenuByMenuId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from g_sys_menu
+    where MENU_ID = #{menuId,jdbcType=BIGINT}
+  </select>
+  <select id="getCompanyUserMenu" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from g_sys_menu
+    where  MENU_ID in(4,6,8,9,10,11,12,13) AND IS_VALID = '1'
+
+  </select>
+  <update id="updateByMenuId" parameterType="com.example.order.entity.GSysMenu" useGeneratedKeys="true" keyProperty="menuId">
+    update g_sys_menu
+    <set>
+      <if test="isValid != null">
+        IS_VALID = #{isValid,jdbcType=CHAR}
+      </if>
+    </set>
+    where MENU_ID = #{menuId,jdbcType=BIGINT}
+  </update>
+
+  <insert id="doUpdateCompanyMenu" parameterType="com.example.order.entity.GSysUserMenu">
+    insert into g_sys_user_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="menuId != null">
+        MENU_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="menuId != null">
+        #{menuId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="doUpdateMenu" parameterType="com.example.order.entity.GSysMenu">
+    update g_sys_menu
+    <set>
+      <if test="menuName != null">
+        MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        SORT = #{sort,jdbcType=CHAR},
+      </if>
+    </set>
+    where MENU_ID = #{menuId,jdbcType=BIGINT}
+  </update>
+
+
+  <select id="getMenus" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from g_sys_menu
+  </select>
+</mapper>

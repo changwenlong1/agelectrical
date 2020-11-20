@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.order.mapper.GSysParaMapper">
+  <resultMap id="BaseResultMap" type="com.example.order.entity.GSysPara">
+
+    <id column="PARA_ID" jdbcType="BIGINT" property="paraId" />
+    <result column="USER_ID" jdbcType="BIGINT" property="userId" />
+    <result column="KEYSS" jdbcType="VARCHAR" property="keyss" />
+    <result column="VALUE" jdbcType="VARCHAR" property="value" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="ISVALID" jdbcType="CHAR" property="isvalid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+
+    PARA_ID, KEYSS, VALUE, REMARK, ISVALID,USER_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+
+    select 
+    <include refid="Base_Column_List" />
+    from g_sys_para
+    where PARA_ID = #{paraId,jdbcType=BIGINT}
+  </select>
+  <select id="getList" parameterType="java.lang.Long" resultMap="BaseResultMap">
+
+    select
+    <include refid="Base_Column_List" />
+    from g_sys_para
+    where USER_ID = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+
+    delete from g_sys_para
+    where PARA_ID = #{paraId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.order.entity.GSysPara">
+
+    insert into g_sys_para (PARA_ID, KEYSS, VALUE,
+      REMARK, ISVALID)
+    values (#{paraId,jdbcType=BIGINT}, #{keyss,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR},
+      #{remark,jdbcType=VARCHAR}, #{isvalid,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.order.entity.GSysPara">
+
+    insert into g_sys_para
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="paraId != null">
+        PARA_ID,
+      </if>
+      <if test="keyss != null">
+        KEYSS,
+      </if>
+      <if test="value != null">
+        VALUE,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="isvalid != null">
+        ISVALID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="paraId != null">
+        #{paraId,jdbcType=BIGINT},
+      </if>
+      <if test="keyss != null">
+        #{keyss,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isvalid != null">
+        #{isvalid,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.order.entity.GSysPara">
+
+    update g_sys_para
+    <set>
+      <if test="keyss != null">
+        KEYSS = #{keyss,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        VALUE = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isvalid != null">
+        ISVALID = #{isvalid,jdbcType=CHAR},
+      </if>
+    </set>
+    where PARA_ID = #{paraId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.order.entity.GSysPara">
+
+    update g_sys_para
+    set KEYSS = #{keyss,jdbcType=VARCHAR},
+      VALUE = #{value,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      ISVALID = #{isvalid,jdbcType=CHAR}
+    where PARA_ID = #{paraId,jdbcType=BIGINT}
+  </update>
+</mapper>

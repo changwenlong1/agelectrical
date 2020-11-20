@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.order.mapper.GSysOrderProgressMapper">
+  <resultMap id="BaseResultMap" type="com.example.order.entity.GSysOrderProgress">
+    <id column="PROGRESS_ID" jdbcType="BIGINT" property="progressId" />
+    <result column="ORDER_ID" jdbcType="BIGINT" property="orderId" />
+    <result column="CREAT_TIME" jdbcType="TIMESTAMP" property="creatTime" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    PROGRESS_ID, ORDER_ID, CREAT_TIME, STATUS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from g_sys_order_progress
+    where PROGRESS_ID = #{progressId,jdbcType=BIGINT}
+  </select>
+  <insert id="insertSelective" parameterType="com.example.order.entity.GSysOrderProgress">
+    insert into g_sys_order_progress
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="progressId != null">
+        PROGRESS_ID,
+      </if>
+      <if test="orderId != null">
+        ORDER_ID,
+      </if>
+      <if test="creatTime != null">
+        CREAT_TIME,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="progressId != null">
+        #{progressId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="creatTime != null">
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.order.entity.GSysOrderProgress">
+    update g_sys_order_progress
+    <set>
+      <if test="orderId != null">
+        ORDER_ID = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="creatTime != null">
+        CREAT_TIME = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where PROGRESS_ID = #{progressId,jdbcType=BIGINT}
+  </update>
+
+  <select id="getOrderProgress" resultType="java.util.Map">
+      SELECT
+          CASE
+              WHEN `STATUS` = '01' THEN '已确认'
+              WHEN `STATUS` = '02' THEN '待维修'
+              WHEN `STATUS` = '03' THEN '已维修'
+              WHEN `STATUS` = '04' THEN '已完成'
+          END AS title,
+          CREAT_TIME AS `desc`
+      FROM
+          g_sys_order_progress
+      WHERE
+          ORDER_ID = #{orderId}
+      ORDER BY CREAT_TIME ASC
+  </select>
+</mapper>

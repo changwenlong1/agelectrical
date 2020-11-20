@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.order.mapper.GSysOrderMapper">
+  <resultMap id="BaseResultMap" type="com.example.order.entity.GSysOrder">
+    <id column="ORDER_ID" jdbcType="BIGINT" property="orderId" />
+    <result column="OPEN_ID" jdbcType="VARCHAR" property="openId" />
+    <result column="CONSUMER_ID" jdbcType="BIGINT" property="consumerId" />
+    <result column="FAULT_TYPE" jdbcType="VARCHAR" property="faultType" />
+    <result column="PROBLEM" jdbcType="VARCHAR" property="problem" />
+    <result column="FEEDBACKSRC" jdbcType="VARCHAR" property="feedbacksrc" />
+    <result column="TELEPHONE" jdbcType="VARCHAR" property="telephone" />
+    <result column="COMPANY_ID" jdbcType="BIGINT" property="companyId" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="CONTACT_ADDR" jdbcType="VARCHAR" property="contactAddr" />
+    <result column="ORDER_STATUS" jdbcType="CHAR" property="orderStatus" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="SEND_SMS" jdbcType="CHAR" property="sendSms" />
+    <result column="TRANSFER_DESC" jdbcType="VARCHAR" property="transferDesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ORDER_ID, OPEN_ID, CONSUMER_ID, FAULT_TYPE, PROBLEM, FEEDBACKSRC, TELEPHONE, COMPANY_ID,
+    ADDRESS, CONTACT_ADDR, ORDER_STATUS,CREATE_TIME, SEND_SMS, TRANSFER_DESC
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from g_sys_order
+    where ORDER_ID = #{orderId,jdbcType=BIGINT}
+  </select>
+  <insert id="insertSelective" parameterType="com.example.order.entity.GSysOrder" useGeneratedKeys="true" keyProperty="orderId">
+    insert into g_sys_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        ORDER_ID,
+      </if>
+      <if test="openId != null">
+        OPEN_ID,
+      </if>
+      <if test="consumerId != null">
+        CONSUMER_ID,
+      </if>
+      <if test="faultType != null">
+        FAULT_TYPE,
+      </if>
+      <if test="problem != null">
+        PROBLEM,
+      </if>
+      <if test="feedbacksrc != null">
+        FEEDBACKSRC,
+      </if>
+      <if test="telephone != null">
+        TELEPHONE,
+      </if>
+      <if test="companyId != null">
+        COMPANY_ID,
+      </if>
+      <if test="address != null">
+        ADDRESS,
+      </if>
+      <if test="contactAddr != null">
+        CONTACT_ADDR,
+      </if>
+      <if test="orderStatus != null">
+        ORDER_STATUS,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="sendSms != null">
+        SEND_SMS,
+      </if>
+      <if test="transferDesc != null">
+        TRANSFER_DESC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="consumerId != null">
+        #{consumerId,jdbcType=BIGINT},
+      </if>
+      <if test="faultType != null">
+        #{faultType,jdbcType=VARCHAR},
+      </if>
+      <if test="problem != null">
+        #{problem,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbacksrc != null">
+        #{feedbacksrc,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="contactAddr != null">
+        #{contactAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendSms != null">
+        #{sendSms,jdbcType=CHAR},
+      </if>
+      <if test="transferDesc != null">
+          #{transferDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.order.entity.GSysOrder">
+    update g_sys_order
+    <set>
+      <if test="openId != null">
+        OPEN_ID = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="consumerId != null">
+        CONSUMER_ID = #{consumerId,jdbcType=BIGINT},
+      </if>
+      <if test="faultType != null">
+        FAULT_TYPE = #{faultType,jdbcType=VARCHAR},
+      </if>
+      <if test="problem != null">
+        PROBLEM = #{problem,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbacksrc != null">
+        FEEDBACKSRC = #{feedbacksrc,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        TELEPHONE = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        COMPANY_ID = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="address != null">
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="contactAddr != null">
+        CONTACT_ADDR = #{contactAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        ORDER_STATUS = #{orderStatus,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendSms != null">
+        SEND_SMS = #{sendSms,jdbcType=CHAR},
+      </if>
+      <if test="transferDesc != null">
+        TRANSFER_DESC = #{transferDesc,jdbcType=CHAR},
+      </if>
+    </set>
+    where ORDER_ID = #{orderId,jdbcType=BIGINT}
+  </update>
+
+  <select id="getOrderListForOwner" resultType="java.util.Map">
+        SELECT
+            a.ORDER_ID AS id,
+            b.SELECT_VALUE AS type,
+            a.CREATE_TIME AS time,
+            CASE
+                WHEN a.ORDER_STATUS = '01' THEN '已受理'
+                WHEN a.ORDER_STATUS = '02' THEN '待维修'
+                WHEN a.ORDER_STATUS = '03' THEN '已维修'
+                WHEN a.ORDER_STATUS = '04' THEN '已完成'
+            END AS status,
+            a.ORDER_STATUS AS orderStatus
+        FROM
+            g_sys_order a LEFT JOIN g_sys_select b ON a.FAULT_TYPE = b.SELECT_ID
+        WHERE
+            a.OPEN_ID = #{openId}
+        ORDER BY a.CREATE_TIME DESC
+  </select>
+  <select id="getInfo"  resultType="java.util.Map">
+    SELECT
+    b.SELECT_VALUE,
+    c.PHONE TEL,
+    c.WORKER_NAME,
+    f.COMPANY_NAME,
+    a.*,
+    CASE
+    WHEN a.ORDER_STATUS = '01' THEN '已受理'
+    WHEN a.ORDER_STATUS = '02' THEN '待维修'
+    WHEN a.ORDER_STATUS = '03' THEN '已维修'
+    WHEN a.ORDER_STATUS = '04' THEN '已完成'
+    END AS STATUS
+    FROM
+    g_sys_order a
+    LEFT JOIN g_sys_select b ON a.FAULT_TYPE = b.SELECT_ID
+    LEFT JOIN g_sys_worker c ON a.CONSUMER_ID = c.WORKER_ID
+    LEFT JOIN g_sys_owner d ON a.COMPANY_ID = d.OWNER_ID
+    LEFT JOIN g_sys_manager e ON e.MANAGER_ID = d.MANAGER_ID
+    LEFT JOIN g_sys_company f ON f.COMPANY_ID = e.COMPANY_ID
+    <!--where f.USER_TEL = '11111111111'-->
+  </select>
+
+  <select id="getOrderListForManager" resultType="java.util.Map">
+      SELECT
+          a.ORDER_ID AS id,
+          b.SELECT_VALUE AS type,
+          a.CREATE_TIME AS time,
+          CASE
+              WHEN a.ORDER_STATUS = '01' THEN '已受理'
+              WHEN a.ORDER_STATUS = '02' THEN '待维修'
+              WHEN a.ORDER_STATUS = '03' THEN '已维修'
+              WHEN a.ORDER_STATUS = '04' THEN '已完成'
+          END AS status,
+          a.ORDER_STATUS AS orderStatus,
+          c.WORKER_NAME AS woker
+      FROM
+          g_sys_order a
+          LEFT JOIN g_sys_select b ON a.FAULT_TYPE = b.SELECT_ID
+          LEFT JOIN g_sys_worker c ON a.CONSUMER_ID = c.WORKER_ID
+      WHERE
+        a.COMPANY_ID IN ( SELECT OWNER_ID FROM g_sys_owner WHERE MANAGER_ID = #{managerId} )
+      ORDER BY a.CREATE_TIME DESC;
+  </select>
+
+  <select id="getOrderListForWorker" resultType="java.util.Map">
+      SELECT
+          a.ORDER_ID AS id,
+          b.SELECT_VALUE AS type,
+          a.CREATE_TIME AS time,
+          CASE
+              WHEN a.ORDER_STATUS = '01' THEN '已受理'
+              WHEN a.ORDER_STATUS = '02' THEN '待维修'
+              WHEN a.ORDER_STATUS = '03' THEN '已维修'
+              WHEN a.ORDER_STATUS = '04' THEN '已完成'
+          END AS status,
+          a.ORDER_STATUS AS orderStatus,
+		  c.GRADE AS grade
+      FROM
+          g_sys_order a
+          LEFT JOIN g_sys_select b ON a.FAULT_TYPE = b.SELECT_ID
+          LEFT JOIN g_sys_worker c ON a.CONSUMER_ID = c.WORKER_ID
+      WHERE
+          a.CONSUMER_ID = #{workerId}
+      ORDER BY a.CREATE_TIME DESC;
+  </select>
+
+    <select id="checkOrderDetails" resultType="java.util.Map">
+        SELECT
+            a.ORDER_ID AS orderId,
+            b.SELECT_VALUE AS type,
+            a.FEEDBACKSRC AS photos,
+            a.TELEPHONE AS phone,
+            CONCAT(a.ADDRESS,a.CONTACT_ADDR) AS address,
+            c.OWNER_NAME AS unit,
+            a.PROBLEM AS evaluation,
+            a.TRANSFER_DESC AS transferDesc
+        FROM g_sys_order a
+        LEFT JOIN g_sys_select b ON a.FAULT_TYPE = b.SELECT_ID
+        LEFT JOIN g_sys_owner c ON a.COMPANY_ID = c.OWNER_ID
+        WHERE a.ORDER_ID = #{orderId}
+  </select>
+</mapper>

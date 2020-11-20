@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.order.mapper.GSysUserMenuMapper">
+  <resultMap id="BaseResultMap" type="com.example.order.entity.GSysUserMenu">
+    <id column="USER_ID" jdbcType="BIGINT" property="userId" />
+    <id column="MENU_ID" jdbcType="BIGINT" property="menuId" />
+  </resultMap>
+
+  <insert id="insertSelective" parameterType="com.example.order.entity.GSysUserMenu">
+    insert into g_sys_user_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="menuId != null">
+        MENU_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="menuId != null">
+        #{menuId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>
