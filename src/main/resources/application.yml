@@ -3,8 +3,9 @@ server:
 spring:
   datasource: #配置数据库连接
     username: root
-    password: 123456
-    url: jdbc:mysql://192.168.0.6:3306/order?serverTimezone=GMT%2B8&characterEncoding=utf8
+    password: root
+    #url: jdbc:mysql://192.168.0.6:3306/order?serverTimezone=GMT%2B8&characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/order?serverTimezone=GMT%2B8&characterEncoding=utf8
     driver-class-name: com.mysql.cj.jdbc.Driver
   rabbitmq: #配置rabbitmq
     host: 127.0.0.1
