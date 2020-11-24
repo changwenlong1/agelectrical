@@ -24,4 +24,14 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
-
+# ===== 自定义swagger配置 ===== #
+swagger:
+  enable: true
+  # 标题
+  application-name: ${spring.application.name}
+  # 版本
+  application-version: 1.0
+  # 文档描述
+  application-description: 文档描述
+  # 文档地址自定义
+  application-default_path: /swagger

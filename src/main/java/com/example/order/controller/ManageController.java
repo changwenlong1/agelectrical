@@ -9,6 +9,8 @@ import com.example.order.service.ManageService;
 import com.example.order.utils.HttpUtil;
 import com.example.order.utils.ServletUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +86,10 @@ public class ManageController {
      * @param request
      * @param response
      */
-    @RequestMapping(value = "/getList",method = RequestMethod.GET)
+    //@RequestMapping(value = "/getList",method = RequestMethod.GET)
+    @GetMapping(value = "/getList")
+    @ApiOperation(value = "接口方法说明", notes = "接口的详情描述")
+    @ApiImplicitParam(name = "type", value = "请传递一个type参数",required = true, dataType = "Long", paramType = "path")
     public void getInfo(@RequestParam("type") String type,
                         @RequestParam(value = "tableId",required = false) String tableId,
                         @RequestParam(value="searchContent",required=false)String searchContent,

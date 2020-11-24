@@ -5,6 +5,10 @@ import com.example.order.entity.GSysManage;
 import com.example.order.exception.LoginException;
 import com.example.order.service.ManageService;
 import com.example.order.utils.ServletUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +31,7 @@ import java.util.Map;
  * @Date 2020/9/10
  * @Version 1.0
  */
+@Api(value = "测试SwaggerAPI Annotation", tags = "Swagger测试之用户信息管理API")
 @Controller
 @RequestMapping("/api/manage")
 public class PcManageController {
@@ -37,6 +42,11 @@ public class PcManageController {
     ManageService manageService;
 
     @RequestMapping(value = "/getList",method = RequestMethod.POST)
+    @ApiOperation(value = "接口方法说明", notes = "接口的详情描述")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "objId", value = "请传递一个objId参数",required = true, dataType = "Long", paramType = "query"),
+            @ApiImplicitParam(name = "type", value = "请传递一个type参数",required = true, dataType = "String", paramType = "query")
+    })
     public void getList(@RequestParam("objId") Long objId,
                             @RequestParam("type") String type,
                             HttpServletRequest request, HttpServletResponse response){
@@ -89,6 +99,7 @@ public class PcManageController {
     }
 
     @RequestMapping(value = "/addList",method = RequestMethod.POST)
+    @ApiOperation(value = "添加传入对象", notes = "添加传入对象")
     public void addList(@RequestBody GSysManage gSysManage,
                             HttpServletRequest request, HttpServletResponse response){
         Map<String, Object> res = new HashMap<String, Object>();
@@ -106,6 +117,8 @@ public class PcManageController {
     }
 
     @RequestMapping(value = "/updateList",method = RequestMethod.POST)
+    @ApiOperation(value = "传入对象", notes = "传入对象")
+    //@ApiImplicitParam(name = "gSysManage", value = "请传递一个gSysManage对象",required = true, dataType = "GSysManage", paramType = "body")
     public void updateList(@RequestBody GSysManage gSysManage,
                             HttpServletRequest request, HttpServletResponse response){
         Map<String, Object> res = new HashMap<String, Object>();
