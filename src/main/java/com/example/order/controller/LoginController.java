@@ -84,7 +84,7 @@ public class LoginController {
 
     @RequestMapping(value = "/doLogin",method = RequestMethod.POST)
     public void doLogin(@RequestParam("userName") String userName,
-                          @RequestParam("passWord") String passWord,
+                          @RequestParam("passWord") String passWord ,
                           @RequestParam(value = "loginCode",required = false) String loginCode,
                           HttpServletRequest request, HttpServletResponse response){
 
