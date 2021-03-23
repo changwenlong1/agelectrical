@@ -282,7 +282,9 @@
   <select id="getManageByTypeAndObjId" resultMap="BaseResultMap">
     select
       a.*,b.USER_NAME
-    from g_sys_manage a left join g_sys_user b on a.USER_ID = b.USER_ID
+    from g_sys_manage a left joi
+
+    n g_sys_user b on a.USER_ID = b.USER_ID
     where a.OBJ_ID = #{objId,jdbcType=BIGINT}
     <if test="type != null and type != ''">
       and a.TYPE = #{type,jdbcType=CHAR}

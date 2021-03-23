@@ -38,7 +38,12 @@ public class JsonUtil extends tool.util.JsonUtil {
 	}
 
 
-
+	/**
+	 * Json字符串转成对象
+	 * @param clz
+	 * @param value
+	 * @param <T>
+	 */
 	public static <T> T parseWithOnlyYMDDate(String value,Class<T> clz){
 		if (StringUtils.isEmpty(value)) {
 			return null;
